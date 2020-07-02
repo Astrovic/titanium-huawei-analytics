@@ -6,8 +6,10 @@ import com.huawei.hms.analytics.HiAnalyticsInstance
 import com.huawei.hms.analytics.HiAnalyticsTools
 import org.appcelerator.kroll.KrollDict
 import org.appcelerator.kroll.KrollModule
+import org.appcelerator.kroll.annotations.Kroll
 import org.appcelerator.kroll.annotations.Kroll.method
 import org.appcelerator.kroll.annotations.Kroll.module
+import org.appcelerator.kroll.annotations.Kroll.setProperty
 import org.appcelerator.kroll.common.Log
 import org.appcelerator.titanium.TiApplication
 import org.appcelerator.titanium.TiBlob
@@ -30,6 +32,12 @@ class TitaniumHuaweiAnalyticsModule : KrollModule() {
     @method
     fun log(key: String, value: KrollDict) {
         instance.onEvent(key, mapToBundle(value))
+    }
+
+    @method
+    @setProperty
+    fun setAnalyticsEnabled(analyticsEnabled: Boolean) {
+        instance.setAnalyticsEnabled(analyticsEnabled)
     }
 
     private fun mapToBundle(map: Map<String, Any?>?): Bundle? {
