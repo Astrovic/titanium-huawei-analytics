@@ -9,3 +9,9 @@ dependencies {
         exclude(group: 'com.huawei.android.hms', module: 'hmssdk-base')
     }
 }
+
+android {
+  packagingOptions {
+      exclude 'META-INF/main.kotlin_module'
+  }
+}
