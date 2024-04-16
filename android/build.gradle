@@ -1,13 +1,8 @@
 repositories {
   maven {url 'https://developer.huawei.com/repo/'}
 }
-
 dependencies {
-  implementation 'com.huawei.hms:hianalytics:6.4.1.301'
-  implementation 'com.huawei.hms:base:5.1.0.300'
-  implementation ('com.huawei.hms:opendevice:4.0.1.301') {
-    exclude(group: 'com.huawei.android.hms', module: 'hmssdk-base')
-  }
+  implementation 'com.huawei.hms:hianalytics:6.12.0.301'
 }
 
 android {

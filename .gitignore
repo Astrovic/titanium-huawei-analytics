@@ -25,7 +25,7 @@ android/clean
 android/ant_clean
 android/.classpath
 android/.settings
-android/dist/
+
 android/launch-*
 android/java-sources.txt
 nbproject

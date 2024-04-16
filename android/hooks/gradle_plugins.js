@@ -1,4 +1,4 @@
-exports.id = 'gradle_plugins';
+exports.id = 'agconnect_plugins';
 exports.cliVersion = '>=3.2';
 exports.init = init;
 
@@ -31,7 +31,8 @@ function init(logger, config, cli, appc) {
 			const projectBuildGradleContents = fs.readFileSync(projectBuildGradle, 'utf-8').toString();
 			const updatedProjectBuildGradleContents = projectBuildGradleContents
 				.split('repositories {').join('repositories {\n\t\tmaven { url \'https://developer.huawei.com/repo/\' }')
-				.split('dependencies {').join('dependencies {\n\t\tclasspath \'com.huawei.hms.plugin:analytics:5.0.1.300\'');
+				//.split('dependencies {').join('dependencies {\n\t\tclasspath \'com.android.tools.build:gradle:7.4.2\'') // Not necessary
+				.split('dependencies {').join('dependencies {\n\t\tclasspath \'com.huawei.agconnect:agcp:1.9.1.302\'');
 
 			fs.writeFileSync(projectBuildGradle, updatedProjectBuildGradleContents);
 			
@@ -43,13 +44,12 @@ function init(logger, config, cli, appc) {
 			const updatedAppBuildGradleContents = appBuildGradleContents
 				.split('dependencies {').join(`
 					dependencies {
-						implementation 'com.huawei.hms:hianalytics:5.0.0.300'
-						implementation 'com.huawei.hms:base:4.0.2.300'
-						implementation ('com.huawei.hms:opendevice:4.0.1.301') {
-							exclude(group: 'com.huawei.android.hms', module: 'hmssdk-base')
-						}
+						implementation 'com.huawei.hms:hianalytics:6.12.0.301'
+						${''/* Add the following 2 dependencies if you use Huawei-Admob Mediation: https://github.com/Explore-In-HMS/huawei.ads.admob_mediation */}
+						implementation 'com.huawei.hms:ads-lite:13.4.69.302' ${''/* Huawei Ads Lite (update to latest version)*/}
+						implementation 'com.github.Explore-In-HMS:huawei.ads.admob_mediation:2.0.2' ${''/* Huawei Admob Mediation (update to latest version)*/}						
 				`)
-				.split('apply plugin: \'com.android.application\'').join('apply plugin: \'com.android.application\'\napply plugin: \'com.huawei.hms.plugin.analytics\'');
+				.split('apply plugin: \'com.android.application\'').join('apply plugin: \'com.android.application\'\napply plugin: \'com.huawei.agconnect\'');
 
 			fs.writeFileSync(appBuildGradle, updatedAppBuildGradleContents);
 		}
